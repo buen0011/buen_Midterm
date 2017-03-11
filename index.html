@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular-route.min.js"></script>
+    <script src="js/todoapp.js"></script>
+    
+</head>
+    <body>
+        
+        <div ng-app="TaskManager">
+            
+            <div class="container midC" >
+               
+                <h1 class="text-center">To-Do List</h1>
+                
+                <div class="content" ng-controller="taskController">
+
+                    <form class="create">
+
+                        <div class="form-group">
+
+                            <label for="title">Task Name</label>
+                            
+                            <br>
+
+                            <input type="text" id="title" class="taskName" placeholder="Write The Task Name" ng-model="newTaskTitle">
+
+
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="description">Description</label>
+                            
+                            <br>
+
+                            <input type="text" id="description" class="taskDescription" placeholder="Write The Description" ng-model="newTaskDescription">
+
+
+
+                        </div>
+
+                            <div class="form-group">
+
+                            <label for="dueDate">Date</label>
+                            
+                            <br>
+
+                            <input type="date" id="dueDateCon" class="taskDate" ng-model="newTaskDate">
+
+                            </div>
+
+                        <div class="">
+
+                            <button class="taskAdd btn-lg btn-primary" ng-click="addNew()">Add task</button>
+
+                        </div>
+
+                    </form>
+                    
+                    <ul class="taskListCont">
+                       
+                        <h2>Task List</h2>
+                        
+                        <li class="taskList d-flex align-items-center" ng-repeat="taskItem in taskItem | filter:false" ng-model="taskItem" >
+                            
+                            <input type="checkbox" ng-model="taskItem.complete" ng-change="save()" name="ListShow">
+                            
+                            <input type="text" ng-model="taskItem.title" placeholder="Task Title">
+                            
+                            <input type="text" ng-model="taskItem.description" placeholder="Task Description">
+                            
+                            <input id="dueDate" class="taskDate" ng-model="taskItem.date" ng-change="save()">
+                            
+                            <button class="taskEdit btn btn-success" ng-click="editTask()" >Save Edit</button>
+                            
+                            <button class="taskDelete btn btn-danger" ng-click="deleteTask(taskItem)" >Delete Tasks</button>
+                        
+                        </li>
+
+                    </ul>
+                    
+                    <br>
+                    
+                    <ul class="taskListCont">
+                       
+                       <h2>Completed Task</h2>
+                        
+                        <li class="taskList taskF" ng-repeat="taskItem in taskItem | filter:true" ng-model="taskItem" >
+                            
+                            <input type="checkbox" ng-model="taskItem.complete" ng-change="save()">
+
+                            <span id="titleComplete" class="complete-{{taskItem.complete}}">{{taskItem.title}}</span>
+
+                            <span id="descriptionComplete" class="description-{{taskItem.description}}">{{taskItem.description}}</span>
+
+                            <strong class="taskDate complete-{{taskItem.complete}}">{{taskItem.date | date : 'mediumDate'}}</strong>
+
+                            <button class="taskDelete btn btn-danger" ng-click="deleteTask(taskItem)" >Delete Tasks</button> 
+                        
+                        </li>
+                        
+                    </ul>
+
+                <!-- taskList --> 
+                </div>
+                
+            <!-- content --> 
+            </div>
+            
+        <!-- container --> 
+        </div>
+        
+    </body>
+    
+</html>
